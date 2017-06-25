@@ -1,0 +1,13 @@
+[package]
+name = "explorer-rs"
+version = "0.1.0"
+authors = ["elaineo <elaine.ou@gmail.com>"]
+
+[[bin]]
+name = "explorer-rs"
+path = "src/main.rs"
+
+[dependencies]
+nickel = "*"
+leveldb = "*"
+serde_json = "1.0"
