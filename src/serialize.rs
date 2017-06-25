@@ -17,7 +17,11 @@ impl<'a> Serialize for MethodParams<'a> {
         where S: Serializer
     {
         match self.0 {
+            Method::EthNewBlockFilter => serializer.serialize_some(&method("eth_newBlockFilter")),
             Method::EthBlockNumber => serializer.serialize_some(&method("eth_blockNumber")),
+            Method::EthGetBlockByNumber => {
+                serializer.serialize_some(&method_params("eth_getBlockByNumber", self.1))
+            },
             Method::EthGetBalance => {
                 serializer.serialize_some(&method_params("eth_getBalance", self.1))
             }

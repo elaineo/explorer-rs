@@ -19,6 +19,10 @@ use std::sync::Arc;
 
 /// RPC methods
 pub enum Method {
+    /// [eth_newBlockFilter](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_newblockfilter)
+    EthNewBlockFilter,
+    /// [eth_getBlockByNumber](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_getblockbynumber)
+    EthGetBlockByNumber,
     /// [eth_blockNumber](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_blocknumber)
     EthBlockNumber,
 
@@ -36,7 +40,7 @@ pub fn start(addr: &SocketAddr, client_addr: &SocketAddr) {
 
     let url = Arc::new(request::AsyncWrapper::new(&format!("http://{}", client_addr)));
 
-    let mut params = Params::None;
+    let params = Params::None;
     url.request(&MethodParams(Method::EthBlockNumber, &params));
 
     {
