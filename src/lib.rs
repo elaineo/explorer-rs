@@ -36,6 +36,9 @@ pub fn start(addr: &SocketAddr, client_addr: &SocketAddr) {
 
     let url = Arc::new(request::AsyncWrapper::new(&format!("http://{}", client_addr)));
 
+    let mut params = Params::None;
+    url.request(&MethodParams(Method::EthBlockNumber, &params));
+
     {
         let url = url.clone();
 

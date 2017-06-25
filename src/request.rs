@@ -25,6 +25,8 @@ impl AsyncWrapper {
         let json: Value = res.json()
             .expect("Expect to deserialize a response as JSON");
 
+        println!("Request received {}", json["result"]);
+
         ::jsonrpc_core::futures::finished(json["result"].clone()).boxed()
     }
 }
