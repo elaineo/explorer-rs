@@ -48,22 +48,20 @@ impl BlockDB {
   
   pub fn write_block_to_db(&self, block: &[u8]) -> () {
       let write_opts = WriteOptions::new();
-      match *self.db.put(write_opts, 1, block) {
+      match self.db.put(write_opts, 1, block) {
           Ok(_) => { () },
           Err(e) => { panic!("failed to write to database: {:?}", e) }
       };    
   }
 
-  pub fn read_block_from_db(&self, key: i32) -> String {
+  pub fn read_block_from_db(&self, key: i32) -> Option<Vec<u8>> {
       let read_opts = ReadOptions::new();
-      let res = *self.db.get(read_opts, 1);
-      match res {
-        Ok(data) => {
-          assert!(data.is_some());
-          assert_eq!(data, Some(vec![1]));
-        }
+      let res = self.db.get(read_opts, key);
+      let data = match res {
+        Ok(data) => { data },
         Err(e) => { panic!("failed reading data: {:?}", e) }
-      }
+      };
+      data
   } 
 
 }
