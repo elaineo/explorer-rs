@@ -4,6 +4,7 @@ extern crate leveldb;
 extern crate explorer;
 
 use std::path::Path;
+use std::net::SocketAddr;
 use leveldb::database::Database;
 use leveldb::kv::KV;
 use leveldb::iterator::Iterable;
@@ -17,6 +18,17 @@ fn main() {
   let database = BlockDB::new(path);
   
   database.write_block_to_db(b"hello");
+
+
+  let addr = "127.0.0.1:8000"
+    .parse::<SocketAddr>()
+    .expect("Expect to parse address");
+
+  let client_addr = "127.0.0.1:8545"
+    .parse::<SocketAddr>()
+    .expect("Expect to parse address");
+    
+  explorer::start(&addr, &client_addr);
 
   
 /*
