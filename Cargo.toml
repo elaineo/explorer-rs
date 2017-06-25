@@ -1,7 +1,11 @@
 [package]
-name = "explorer-rs"
+name = "explorer"
 version = "0.1.0"
 authors = ["elaineo <elaine.ou@gmail.com>"]
+
+[lib]
+name = "explorer"
+path = "src/lib.rs"
 
 [[bin]]
 name = "explorer-rs"
@@ -10,10 +14,14 @@ path = "src/main.rs"
 [dependencies]
 leveldb = "*"
 rustc-serialize = "0.3"
-serde = "0.9"
+serde = "1.0"
 serde_json = "1.0"
-serde_derive = "*"
-hyper = "*"
-jsonrpc-core = { git = "https://github.com/ethcore/jsonrpc.git", branch="master" }
-jsonrpc-minihttp-server = { git = "https://github.com/ethcore/jsonrpc.git", branch="master" }
-reqwest = "*"
+serde_derive = "1.0"
+jsonrpc-core = "7.0.1"
+jsonrpc-http-server = "7.0.1"
+lazy_static = "0.2"
+reqwest = { version = "0.6", optional = true }
+
+[features]
+default = ["http"]
+http = ["reqwest"]
