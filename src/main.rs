@@ -1,12 +1,13 @@
+
 extern crate leveldb;
-extern crate serde_json;
+
+extern crate explorer;
 
 use std::path::Path;
 use leveldb::database::Database;
 use leveldb::kv::KV;
 use leveldb::iterator::Iterable;
 use leveldb::options::{Options,WriteOptions,ReadOptions};
-use serde_json::{Value, Error};
 
 const DEFAULT_DIR: &'static str = "./blockdb";
 

@@ -3,15 +3,14 @@
 use jsonrpc_core::Params;
 
 use serde::ser::{Serialize, Serializer};
-use std::sync::Arc;
-use std::sync::atomic::{AtomicUsize, Ordering};
+use std::sync::atomic::{AtomicUsize, Ordering, ATOMIC_USIZE_INIT};
 
-use connect::MethodParams;
-use connect::Method;
+use ::MethodParams;
+use ::Method;
 
 static NONE: Params = Params::None;
 
-static REQ_ID: Arc<AtomicUsize> = Arc::new(AtomicUsize::new(1));
+static REQ_ID: AtomicUsize = ATOMIC_USIZE_INIT;
 
 impl<'a> Serialize for MethodParams<'a> {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
@@ -26,7 +25,7 @@ impl<'a> Serialize for MethodParams<'a> {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Serialize)]
 struct JsonData<'a> {
     jsonrpc: &'static str,
     method: &'static str,
