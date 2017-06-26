@@ -1,7 +1,6 @@
 
 extern crate leveldb;
-
-extern crate explorer;
+extern crate gethrpc;
 
 use std::path::Path;
 use std::net::SocketAddr;
@@ -9,6 +8,8 @@ use leveldb::database::Database;
 use leveldb::kv::KV;
 use leveldb::iterator::Iterable;
 use leveldb::options::{Options,WriteOptions,ReadOptions};
+
+use gethrpc::GethRPCClient;
 
 const DEFAULT_DIR: &'static str = "./blockdb";
 
@@ -24,12 +25,14 @@ fn main() {
     .parse::<SocketAddr>()
     .expect("Expect to parse address");
 
-  let client_addr = "127.0.0.1:8545"
-    .parse::<SocketAddr>()
-    .expect("Expect to parse address");
+  let client_addr = "http://127.0.0.1:8545";
     
-  explorer::start(&addr, &client_addr);
 
+  let mut client = GethRPCClient::new(client_addr);
+
+  let x: String = client.client_version();
+
+  println!("x: {:?}", x);
   
 /*
   
